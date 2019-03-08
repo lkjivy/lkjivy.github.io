@@ -78,6 +78,10 @@
     				.attr("transform", "translate("+padding*2+","+padding+")")
     				.call(yAxis); 
 
+                var cScale = d3.scaleLinear()
+                               .domain([0,50,100])
+                               .range(["white","red","black"])
+
 
                 svg.selectAll("circle")
                     .data(data)
@@ -90,6 +94,9 @@
                         return xScale(d.borough)+padding*4
                     })
                     .attr("r",5)
+                    .style("fill",function(d,i){
+                        return cScale(d[column])
+                    })
                 
                 svg.selectAll(".label")
                     .data(data)
@@ -117,6 +124,9 @@
                     var padding = 20
                     var yScale = d3.scaleLinear().domain([0,100]).range([h,0])
                     var xScale = d3.scaleBand().domain(["brooklyn","manhattan","bronx","queens","staten_island"]).range([0,w])
+                    var cScale = d3.scaleLinear()
+                               .domain([0,50,100])
+                               .range(["white","red","black"])
                 
                     d3.selectAll("circle")
                             .data(data)//data
@@ -128,6 +138,9 @@
                             .attr("cx",function(d,i){
                                 return xScale(d.borough)+padding*4//still catagorized by borough
                             })
+                            .style("fill",function(d,i){
+                        return cScale(d[column])
+                    })
 
                         
                     d3.selectAll(".label")
